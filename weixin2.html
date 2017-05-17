@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>微信支付样例-支付</title>
+
+</head>
+<body>
+<br/>
+<font color="#9ACD32"><b>该笔订单支付金额为<span style="color:#f00;font-size:50px"><?php echo $result['current_debt'];?></span>钱</b></font><br/><br/>
+<div align="center">
+    <button style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" onclick="callpay()" >立即支付</button>
+</div>
+
+<script type="text/javascript">
+    //调用微信JS api 支付
+    function jsApiCall()
+    {
+        WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+        <?php echo $jsPayInfo; ?>,
+        function(res){
+            //支付成功
+            if(res.err_msg == "get_brand_wcpay_request：ok" ){
+                alert(支付成功);
+                window.location="http://hbcjrfljjh.var365.cn/user/Cart/order/id/144";
+                //window.location.href="/user/user/weixincallback.html?res=scuess";
+                //支付失败
+            }else if(res.err_msg == "get_brand_wcpay_request：fail" ){
+                alert(支付失败);
+                window.location="http://hbcjrfljjh.var365.cn/user/Cart/order/id/144";
+            }else{
+                //alert(res.err_code+res.err_desc+res.err_msg);
+            }
+        }
+    );
+    }
+
+    function callpay()
+    {
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        }else{
+            jsApiCall();
+        }
+    }
+
+
+    function showPop(param){
+        var sets = $.extend({
+            'content': '您确认要进行此操作么？',
+            'cancel': null,
+            'success': null
+        }, param);
+        var strInf = $('<div class="read_mask"><div class="mask_bg"></div><div class="mask_cont"><p>'+sets.content+'</p><span class="close_j">离开</span><span class="scuess_j">缴费</span></div></div>');
+        strInf.find(".close_j").click(function(){
+            strInf.remove();
+            if(sets.cancel != null && typeof sets.cancel == 'function'){
+                sets.cancel();
+            }
+        });
+        strInf.find(".scuess_j").click(function(){
+            strInf.remove();
+            if(sets.success != null && typeof sets.success == 'function'){
+                sets.success();
+            }
+        });
+        $('body').append(strInf);
+    }
+</script>
+
+</body>
+</html>
+

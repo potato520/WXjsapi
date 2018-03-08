@@ -1,18 +1,14 @@
 <?php
 /**
  *--------------------------------------------------------------------------------------
- * iZhanCMS 爱站内容管理系统  (http://www.izhancms.com)
+ * 
  *
  * PaymentController.php
  *
  * 支付详细类————前台
  *
- *
- * @author     史天宇<tongxinhua@mail.b2b.cn>   2014-4-23 上午10:13
+ * @author     尤开利 573358951@qq.com
  * @copyright  Copyright (c) 2004-2014 Mainone Technologies Inc. (http://www.b2b.cn)
- * @license    http://www.izhancms.com/license/   iZhanCMS 3.0
- * @version    iZhanCMS 3.0
- * @link       http://www.izhancms.com
  * @link       http://www.b2b.cn
  * @since      3.0.0
  *-------------------------------------------------------------------------------------
